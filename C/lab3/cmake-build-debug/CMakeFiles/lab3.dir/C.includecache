@@ -1,0 +1,12 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/cygdrive/c/Users/ekorneev/Desktop/DATA/LEARNING/LEARNING-REPOS/Mephi/.mephi/C/lab3/main.c
+stdio.h
+-
+
