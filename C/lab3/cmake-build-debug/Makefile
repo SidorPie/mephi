@@ -57,10 +57,10 @@ RM = /cygdrive/c/Users/ekorneev/AppData/Local/JetBrains/CLion2021.2/cygwin_cmake
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /cygdrive/c/Users/ekorneev/Desktop/DATA/LEARNING/LEARNING-REPOS/Mephi/.mephi/C/lab3
+CMAKE_SOURCE_DIR = /cygdrive/c/Users/ekorneev/Desktop/DATA/LEARNING/LEARNING-REPOS/Mephi/C/lab3
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /cygdrive/c/Users/ekorneev/Desktop/DATA/LEARNING/LEARNING-REPOS/Mephi/.mephi/C/lab3/cmake-build-debug
+CMAKE_BINARY_DIR = /cygdrive/c/Users/ekorneev/Desktop/DATA/LEARNING/LEARNING-REPOS/Mephi/C/lab3/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/c/Users/ekorneev/Desktop/DATA/LEARNING/LEARNING-REPOS/Mephi/.mephi/C/lab3/cmake-build-debug/CMakeFiles /cygdrive/c/Users/ekorneev/Desktop/DATA/LEARNING/LEARNING-REPOS/Mephi/.mephi/C/lab3/cmake-build-debug//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/c/Users/ekorneev/Desktop/DATA/LEARNING/LEARNING-REPOS/Mephi/C/lab3/cmake-build-debug/CMakeFiles /cygdrive/c/Users/ekorneev/Desktop/DATA/LEARNING/LEARNING-REPOS/Mephi/C/lab3/cmake-build-debug//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/c/Users/ekorneev/Desktop/DATA/LEARNING/LEARNING-REPOS/Mephi/.mephi/C/lab3/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /cygdrive/c/Users/ekorneev/Desktop/DATA/LEARNING/LEARNING-REPOS/Mephi/C/lab3/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -129,6 +129,30 @@ lab3/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lab3.dir/build.make CMakeFiles/lab3.dir/build
 .PHONY : lab3/fast
 
+copy.o: copy.c.o
+.PHONY : copy.o
+
+# target to build an object file
+copy.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lab3.dir/build.make CMakeFiles/lab3.dir/copy.c.o
+.PHONY : copy.c.o
+
+copy.i: copy.c.i
+.PHONY : copy.i
+
+# target to preprocess a source file
+copy.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lab3.dir/build.make CMakeFiles/lab3.dir/copy.c.i
+.PHONY : copy.c.i
+
+copy.s: copy.c.s
+.PHONY : copy.s
+
+# target to generate assembly for a file
+copy.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lab3.dir/build.make CMakeFiles/lab3.dir/copy.c.s
+.PHONY : copy.c.s
+
 main.o: main.c.o
 .PHONY : main.o
 
@@ -153,6 +177,30 @@ main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/lab3.dir/build.make CMakeFiles/lab3.dir/main.c.s
 .PHONY : main.c.s
 
+shellsort.o: shellsort.c.o
+.PHONY : shellsort.o
+
+# target to build an object file
+shellsort.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lab3.dir/build.make CMakeFiles/lab3.dir/shellsort.c.o
+.PHONY : shellsort.c.o
+
+shellsort.i: shellsort.c.i
+.PHONY : shellsort.i
+
+# target to preprocess a source file
+shellsort.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lab3.dir/build.make CMakeFiles/lab3.dir/shellsort.c.i
+.PHONY : shellsort.c.i
+
+shellsort.s: shellsort.c.s
+.PHONY : shellsort.s
+
+# target to generate assembly for a file
+shellsort.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/lab3.dir/build.make CMakeFiles/lab3.dir/shellsort.c.s
+.PHONY : shellsort.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,9 +210,15 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... lab3"
+	@echo "... copy.o"
+	@echo "... copy.i"
+	@echo "... copy.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... shellsort.o"
+	@echo "... shellsort.i"
+	@echo "... shellsort.s"
 .PHONY : help
 
 
