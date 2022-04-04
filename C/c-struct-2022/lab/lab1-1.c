@@ -1,13 +1,13 @@
-﻿/*
- * Вариант 36
+﻿/* Вариант 36
  * Из входного потока вводится непрямоугольная матрица целых чисел
  * [Aij]  i = 1, ..., M,  j = 1, ..., Ni.
  * Значения M и Ni заранее не известны и вводятся из входного потока.
  * Сформировать вектор, упорядочив по возрастанию значения той строки матрицы, в которой
- * сумма элементов максимальна. Если таких строк несколько, упорядочить одну (любую) строку.
+ * сумма элементов максимальна.
+ * Если таких строк несколько, упорядочить одну (любую) строку.
  * В дополнительных функциях доступ к элементам массивов реализовать с помощью указателей.
  * Исходную и полученную матрицы вывести в выходной поток с необходимыми комментариями.
- * */
+ */
 #include "lab1-1.h"
 
 int getInt(int *a) {
@@ -109,10 +109,8 @@ int GetLineSum(struct Line *pLine) {
 }
 
 struct Line *GetMaxLine(struct Matrix *pMatrix) {
-
-    struct Line *pMaxSumLine;// = (Line *) malloc(sizeof(struct Line));;
+    struct Line *pMaxSumLine;
     int maxSumValue = 0;
-
     if (pMatrix) {
         for (int i = 0; i < (pMatrix->lines); ++i) {
             int rowSum = GetLineSum(&pMatrix->matr[i]);
@@ -121,31 +119,26 @@ struct Line *GetMaxLine(struct Matrix *pMatrix) {
                 pMaxSumLine = &pMatrix->matr[i];
             }
         }
-
         return pMaxSumLine;
     }
 }
 
 struct Line *SortLine(struct Line *pLine) {
-    //double *q = (double *) malloc(sizeof(double) * pLine.n);
-
     double *LineArray;
     LineArray = pLine->a;
     int n = pLine->n;
-
     bubbleSort(LineArray, n, 0);
-
     return pLine;
 }
 
 void bubbleSort(double *a, int n, char isAsc) {
     if (isAsc == 0) {
         int i, j;
-        for (i = 0; i < n - 1; i++) //Цикл сравнения 
-        {
+        //Цикл сравнения
+        for (i = 0; i < n - 1; i++) {
             for (j = 0; j < n - i - 1; j++) {
-                if (a[j] > a[j + 1]) //Если порядок не правильный, меняем их местами
-                {
+                //Если порядок не правильный, меняем их местами
+                if (a[j] > a[j + 1]) {
                     double tmp2 = a[j];
                     a[j] = a[j + 1];
                     a[j + 1] = tmp2;
@@ -154,12 +147,11 @@ void bubbleSort(double *a, int n, char isAsc) {
         }
     } else if (isAsc == 1) {
         int i, j;
-        for (i = 0; i < n - 1; i++) //Цикл сравнения 
-        {
+        //Цикл сравнения
+        for (i = 0; i < n - 1; i++) {
             for (j = 0; j < n - i - 1; j++) {
-
-                if (a[j] < a[j + 1]) //Если порядок не правильный, меняем их местами
-                {
+                //Если порядок не правильный, меняем их местами
+                if (a[j] < a[j + 1]) {
                     double tmp2 = a[j];
                     a[j] = a[j + 1];
                     a[j + 1] = tmp2;
@@ -172,34 +164,25 @@ void bubbleSort(double *a, int n, char isAsc) {
 int Execute() {
     int exitFlag = 0;
     while (exitFlag = 1) {
-
         Matrix matr = {0, NULL};
         if (input(&matr) == 0) {
             printf("%s\n", "End of file occured");
             return 1;
         }
-
         output("\nSource matrix", matr);
-
         Line *maxLine = GetMaxLine(&matr);
         SortLine(maxLine);
         printf("Matrix sorted.\n");
-
         //output("\nResult matrix", matr);
         printf("Result matrix:\n");
         for (int i = 0; i < maxLine->n; ++i) {
-            //printf("%10lf ", maxLine->a[i]);
             printf("%.0lf ", maxLine->a[i]);
         }
-
         erase(&matr);
-
         printf("\nMatrix disposed.\n");
         printf(" Quit: press 1\n");
         printf("Retry: press 0\n");
-
         scanf("%d", &exitFlag);
-
         if (exitFlag == 1)
             return 1;
         else

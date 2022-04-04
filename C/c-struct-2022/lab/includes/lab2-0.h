@@ -1,7 +1,6 @@
 #ifndef MAIN_C_LAB2_0_H
 #define MAIN_C_LAB2_0_H
-
-#endif //MAIN_C_LAB2_0_H
+#endif
 
 #include <stdio.h>
 #include <malloc.h>
@@ -26,5 +25,6 @@ Item *skipWord(Item *);
 
 Item *delWord(Item *);
 
-Item * GetLastChar(Item *p);
+Item *GetLastChar(Item *p);
+
 int Execute();
