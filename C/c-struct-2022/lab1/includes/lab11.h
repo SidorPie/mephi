@@ -32,6 +32,6 @@ double min(double a[], int m);//вычисление минимального э
 int Execute(); //функция аналог main
 int GetLineSum(struct Line *pLine);
 struct Line *GetMaxLine(struct Matrix pMatrix);
-void SortLine(struct Line *pLineHead);
+struct Line *SortLine(struct Line *pLineHead);
 void bubbleSort(double *a, int n, char isAsc);
 

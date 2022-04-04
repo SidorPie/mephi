@@ -131,9 +131,9 @@ int GetLineSum(struct Line *pLine) {
     return result;
 }
 
-struct Line* GetMaxLine(struct Matrix pMatrix) {
+struct Line *GetMaxLine(struct Matrix pMatrix) {
     
-    struct Line pMaxSumLine;// = (Line *) malloc(sizeof(struct Line));;
+    struct Line *pMaxSumLine;// = (Line *) malloc(sizeof(struct Line));;
     int maxSumValue = 0;
 
     if (&pMatrix) {
@@ -143,21 +143,21 @@ struct Line* GetMaxLine(struct Matrix pMatrix) {
 
             if (maxSumValue < rowSum) {
                 maxSumValue = rowSum;
-                pMaxSumLine = pMatrix.matr[i];
+                pMaxSumLine = &pMatrix.matr[i];
             }
         }
 
-        return &pMaxSumLine;
+        return pMaxSumLine;
     }
 }
 
-void SortLine(struct Line *pLine) {
+struct Line * SortLine(struct Line *pLine) {
 
     //double *q = (double *) malloc(sizeof(double) * pLine.n);
     //double *q;
     //q = pLine.a;
     bubbleSort(pLine->a,pLine->n,0);
-    //return q; 
+    return pLine; 
 }
 
 void bubbleSort(double *a, int n, char isAsc) {
@@ -208,9 +208,9 @@ int Execute() {
     
     SortLine(maxLine);
     
-    for (int i = 0; i < &maxLine->n; ++i) 
+    for (int i = 0; i < maxLine->n; ++i) 
     {
-        printf("%i",&maxLine->a[i]);    
+        printf("%10lf ",maxLine->a[i]);    
     }
     
     output("Source matrix", matr);
