@@ -1,4 +1,4 @@
-#include <lab1-1.h>
+#include <lab2-0.h>
 
 int main() {
 
