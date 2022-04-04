@@ -71,7 +71,6 @@ Item *newString(Item *p, int fl) {
     Item head = {'*', p};
     Item *cur = &head;
     Item *prev = &head;
-
     //int fl = 1;
 
     while (cur && (cur->next = delSpace(cur->next))) {
@@ -126,10 +125,8 @@ Item *delWord(Item *p) {
     return p;
 }
 
-Item * GetLastChar(Item *p)
-{
-    while(p->next!=NULL)
-    {
+Item *GetLastChar(Item *p) {
+    while (p->next != NULL) {
         p = p->next;
     }
     return p;
@@ -139,44 +136,28 @@ int Execute() {
     Item *ptr = NULL;
     Item *ptr2 = NULL;
     Item *ptr3 = NULL;
-    //Item *ptr4 = NULL;
 
-    puts("enter string1");
-    getList(&ptr);
-    putList("Entered string", ptr);
-    ptr = newString(ptr, 1);
-    putList("Odd string", ptr);
+    while (puts("enter string1"), getList(&ptr), puts("enter string2"), getList(&ptr2)) {
+        putList("string1", ptr);
+        putList("string2", ptr2);
 
+        ptr = newString(ptr, 1);
+        putList("Odd string", ptr);
 
-    puts("enter string2");
-    getList(&ptr2);
-    putList("Entered string", ptr2);
-    ptr2 = newString(ptr2, 0);
-    putList("Even string", ptr2);
+        ptr2 = newString(ptr2, 0);
+        putList("Even string", ptr2);
 
-    ptr3=GetLastChar(ptr);
-    //ptr3->next=ptr2;
-    ptr3->next=malloc(sizeof(Item));
-    ptr3->next->c=' ';
-    ptr3->next->next=ptr2;
-    //GetLastChar(ptr)->next = malloc(sizeof(Item));
-    //GetLastChar(ptr)->c=' ';
-    //GetLastChar(ptr)->next=ptr2;
+        if (ptr != NULL) {
+            ptr3 = GetLastChar(ptr);
+            ptr3->next = malloc(sizeof(Item));
+            ptr3->next->c = ' ';
+            ptr3->next->next = ptr2;
 
+            putList("Result string", ptr);
+        }
 
-    putList("Result string", ptr);
-
-    //ptr3->next = (Item *) malloc(sizeof(Item));
-    //ptr3->next->c=' ';
-    //ptr3->next->next=ptr;
-
-    //putList("Result string", ptr3);
-
-    //ptr4 = deleteList(ptr4);
-
-    ptr = deleteList(ptr);
-    ptr2 = deleteList(ptr2);
-    ptr3 = deleteList(ptr3);
+        ptr = deleteList(ptr);
+    }
 
     return 0;
 }
