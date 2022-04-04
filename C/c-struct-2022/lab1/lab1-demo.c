@@ -13,7 +13,6 @@ int getInt(int *a) {
     } while (n == 0);
     return 1;
 }
-
 int getDouble(double *a) {
     int n;
     do {
@@ -27,7 +26,6 @@ int getDouble(double *a) {
     } while (n == 0);
     return 1;
 }
-
 int input(Matrix *rm) {
     const char *pr = "";
     int m;
@@ -67,7 +65,6 @@ int input(Matrix *rm) {
     }
     return 1;
 }
-
 void output(const char *msg, Matrix a) {
     int i, j;
     double *p;
@@ -79,7 +76,6 @@ void output(const char *msg, Matrix a) {
         printf("\n");
     }
 }
-
 void erase(Matrix *a) {
     int i;
     for (i = 0; i < a->lines; ++i)
@@ -88,7 +84,6 @@ void erase(Matrix *a) {
     a->lines = 0;
     a->matr = NULL;
 }
-
 double minmax(Matrix pm) {
     double *s = (double *) malloc(sizeof(double) * pm.lines);
     double res;
@@ -100,7 +95,6 @@ double minmax(Matrix pm) {
     free(s);
     return res;
 }
-
 double max(double a[], int m) {
     double res = *a;
     for (; m-- > 0; ++a)
@@ -108,7 +102,6 @@ double max(double a[], int m) {
             res = *a;
     return res;
 }
-
 double min(double a[], int m) {
     double res = *a;
     for (; m-- > 0; ++a)
@@ -116,7 +109,6 @@ double min(double a[], int m) {
             res = *a;
     return res;
 }
-
 double mm(double a[], int m, int flag) {
     double res = *a;
     for (; m-- > 0; ++a)
@@ -124,8 +116,6 @@ double mm(double a[], int m, int flag) {
             res = *a;
     return res;
 }
-
-
 int ExecuteMain() {
     Matrix matr = {0, NULL};
     double res;

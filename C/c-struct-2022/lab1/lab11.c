@@ -75,7 +75,8 @@ void output(const char *msg, Matrix a) {
     for (i = 0; i < a.lines; ++i) {
         p = a.matr[i].a;
         for (j = 0; j < a.matr[i].n; ++j, ++p)
-            printf("%10lf ", *p);
+            //printf("%10lf ", *p);
+            printf("%.0lf ", *p);
         printf("\n");
     }
 }
@@ -89,61 +90,25 @@ void erase(Matrix *a) {
     a->matr = NULL;
 }
 
-double minmax(Matrix pm) {
-    double *s = (double *) malloc(
-            sizeof(double) * pm.lines); // Вектор для получения мах элементов в строке - по строкам
-    double res;
-    double *p = s;
-    int i;
-
-    for (i = 0; i < pm.lines; ++i)
-        *p++ = max(pm.matr[i].a, pm.matr[i].n); // s[i] = mm(pm.matr[i].a,    pm.matr[i].n, 1);
-
-    res = min(s, pm.lines); //res = mm(s, pm.lines, -1);
-
-    free(s);
-
-    return res;
-}
-
-double max(double a[], int m) {
-    double res = *a;
-    for (; m-- > 0; ++a)
-        if (*a > res)
-            res = *a;
-    return res;
-}
-
-double min(double a[], int m) {
-    double res = *a;
-    for (; m-- > 0; ++a)
-        if (*a < res)
-            res = *a;
-    return res;
-}
-
 int GetLineSum(struct Line *pLine) {
     double result = 0;
-
     for (int i = 0; i < pLine->n; ++i) {
         result = result + pLine->a[i];
     }
     return result;
 }
 
-struct Line *GetMaxLine(struct Matrix pMatrix) {
-    
+struct Line *GetMaxLine(struct Matrix *pMatrix) {
+
     struct Line *pMaxSumLine;// = (Line *) malloc(sizeof(struct Line));;
     int maxSumValue = 0;
 
-    if (&pMatrix) {
-
-        for (int i = 0; i < (pMatrix.lines); ++i) {
-            int rowSum = GetLineSum(&pMatrix.matr[i]);
-
+    if (pMatrix) {
+        for (int i = 0; i < (pMatrix->lines); ++i) {
+            int rowSum = GetLineSum(&pMatrix->matr[i]);
             if (maxSumValue < rowSum) {
                 maxSumValue = rowSum;
-                pMaxSumLine = &pMatrix.matr[i];
+                pMaxSumLine = &pMatrix->matr[i];
             }
         }
 
@@ -151,13 +116,16 @@ struct Line *GetMaxLine(struct Matrix pMatrix) {
     }
 }
 
-struct Line * SortLine(struct Line *pLine) {
-
+struct Line *SortLine(struct Line *pLine) {
     //double *q = (double *) malloc(sizeof(double) * pLine.n);
-    //double *q;
-    //q = pLine.a;
-    bubbleSort(pLine->a,pLine->n,0);
-    return pLine; 
+
+    double *LineArray;
+    LineArray = pLine->a;
+    int n = pLine->n;
+
+    bubbleSort(LineArray, n, 0);
+
+    return pLine;
 }
 
 void bubbleSort(double *a, int n, char isAsc) {
@@ -191,31 +159,41 @@ void bubbleSort(double *a, int n, char isAsc) {
     }
 }
 
-
 int Execute() {
-    
-    Matrix matr = {0, NULL};
-    double res;
-    
-    if (input(&matr) == 0) {
-        printf("%s\n", "End of file occured");
-        return 1;
+    int exitFlag = 0;
+    while (exitFlag = 1) {
+
+        Matrix matr = {0, NULL};
+        if (input(&matr) == 0) {
+            printf("%s\n", "End of file occured");
+            return 1;
+        }
+
+        output("\nSource matrix", matr);
+
+        Line *maxLine = GetMaxLine(&matr);
+        SortLine(maxLine);
+        printf("Matrix sorted.\n");
+
+        //output("\nResult matrix", matr);
+        printf("Result matrix:\n");
+        for (int i = 0; i < maxLine->n; ++i) {
+            //printf("%10lf ", maxLine->a[i]);
+            printf("%.0lf ", maxLine->a[i]);
+        }
+
+        erase(&matr);
+
+        printf("\nMatrix disposed.\n");
+        printf(" Quit: press 1\n");
+        printf("Retry: press 0\n");
+
+        scanf("%d", &exitFlag);
+
+        if (exitFlag == 1)
+            return 1;
+        else
+            exitFlag = 0;
     }
-    
-    res = minmax(matr);
-    
-    Line *maxLine = GetMaxLine(matr);
-    
-    SortLine(maxLine);
-    
-    for (int i = 0; i < maxLine->n; ++i) 
-    {
-        printf("%10lf ",maxLine->a[i]);    
-    }
-    
-    output("Source matrix", matr);
-    printf("Result: %f\n", res);
-    erase(&matr);
-   
     return 0;
 }
