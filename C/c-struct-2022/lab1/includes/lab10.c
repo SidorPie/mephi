@@ -1,6 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <model.h>
+﻿#include "lab10.h"
 
 struct RowNode *CreateRow(int length) {
     int input, counter;
@@ -112,4 +110,28 @@ struct RowNode *GetMaxRow(struct MatrixNode *pMatrix) {
         }
         return pMaxSumRow;
     }
+}
+
+int Execute() {
+    struct MatrixNode *pMatrix;
+    int exitFlag = 0;
+    while (exitFlag = 1) {
+        pMatrix = CreateMatrix();
+        printf("Your input is:\n");
+        DisplayMatrix(pMatrix);
+        SortRow(GetMaxRow(pMatrix));
+        printf("Matrix sorted.\n");
+        DisplayMatrix(pMatrix);
+        DisposeMatrix(pMatrix);
+        printf("Matrix disposed.\n");
+        printf(" Quit: press 1\n");
+        printf("Retry: press 0\n");
+        scanf("%d", &exitFlag);
+
+        if (exitFlag == 1)
+            return 1;
+        else
+            exitFlag = 0;
+    }
+    return 0;
 }

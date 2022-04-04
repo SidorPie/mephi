@@ -1,8 +1,5 @@
 cmake_minimum_required(VERSION 3.21)
-project(c_structures C)
-
+project(lab1 C)
 set(CMAKE_C_STANDARD 17)
-
-add_executable(c_structures main.c includes/method.c)
-
+add_executable(lab1 main.c includes/lab11.c includes/lab11.h)
 include_directories(includes/)

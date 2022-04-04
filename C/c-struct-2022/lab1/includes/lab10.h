@@ -1,3 +1,16 @@
+﻿//
+// Created by lis_t on 03.04.2022.
+//
+
+#ifndef C_STRUCTURES_LAB10_H
+#define C_STRUCTURES_LAB10_H
+
+#endif //C_STRUCTURES_LAB10_H
+
+#include <stdlib.h>
+#include <stdio.h>
+
+int Execute();
 struct MatrixNode {
     struct RowNode *row;
     struct MatrixNode *pNextRow;
@@ -23,3 +36,6 @@ void DisplayRow(struct RowNode *pList);
 void SortRow(struct RowNode *pListHead);
 
 int GetRowSum(struct RowNode *pColumnValue);
+
+
+

@@ -8,33 +8,13 @@
  * В дополнительных функциях доступ к элементам массивов реализовать с помощью указателей.
  * Исходную и полученную матрицы вывести в выходной поток с необходимыми комментариями.
  * */
-#include <stdio.h>
-#include <model.h>
+#include <lab11.h>
 
 int main() {
-    struct MatrixNode *pMatrix;
 
-    int exitFlag = 0;
+    int result = Execute();
 
-    while (exitFlag = 'n') {
-        pMatrix = CreateMatrix();
-        printf("Your input is:\n");
-        DisplayMatrix(pMatrix);
-        SortRow(GetMaxRow(pMatrix));
-        printf("Matrix sorted.\n");
-        DisplayMatrix(pMatrix);
-        DisposeMatrix(pMatrix);
-        printf("Matrix disposed.\n");
-        printf(" Quit: press 1\n");
-        printf("Retry: press 0\n");
-        scanf("%d", &exitFlag);
-
-        if (exitFlag == 1)
-            return 0;
-        else
-            exitFlag = 0;
-    }
-
+    printf("stop");
     return 0;
 }
 
