@@ -89,7 +89,21 @@ Item *find_item(Table *table, int key, int release)
     }
     return NULL;
 }
+int GetLastRev(Item ** items)
+{
+    int i = 0;
+    int release = 0;
 
+    while(items[i]!=NULL)
+    {
+        if(items[i]->release>release)
+        {
+            release=items[i]->release;
+        }
+        i++;
+    }
+    return release;
+}
 Item **find_all_items(Table *table, int key)
 {
     int index = hash(key);
@@ -188,116 +202,123 @@ int D_FindAllItems(Table *table)
 }
 int D_ClearTable(Table *table)
 {
-    printf("?????? ???????...\n");
-    int removed = 0;
     int i;
+    int key;
     for (i = 0; i < SIZE; i++)
     {
-        struct Item *current = table->table[i];
-        struct Item *previous = NULL;
+        Item *head = table->table[i];
+        
+        Item *current = table->table[i];
+        Item *current2;
+        Item *previous2 = NULL;
         while (current != NULL)
         {
-            if (current->next != NULL && current->key == current->next->key)
-            {
-                /* ???? ????????? ??????? ? ??????? ????? ????? ?? ????,
-                 * ?? ??????? ??????? ?? ???????? ????????? ??????? ???????? ? ?????? ?????? */
-                if (previous == NULL)
+            //previous = NULL;
+            key = current->key;
+            current2 = current->next;
+            previous2 = current;
+            while(current2!=NULL)
+            {   
+                if(current2->key == key)
                 {
-                    table->table[i] = current->next;
-                }
-                else
+                    previous2->next=current2->next;
+                    free(current2);
+                    current2 = current2->next;
+                }else
                 {
-                    previous->next = current->next;
-                }
-                free(current->info);
-                free(current);
-                current = previous != NULL ? previous->next : table->table[i];
-                removed++;
+                previous2 = current2;
+                current2 = current2->next;}
             }
-            else
-            {
-                previous = current;
-                current = current->next;
-            }
-        }
+            
+            current = current->next;
+        }   
     }
-
-    printf("??????? ?????????: %d\n", removed);
 
     return 1;
 }
 int D_Show(Table *table)
-{
+{   
+    printf("|key|rel|inf|\n");
     for (int i = 0; i < SIZE; i++)
     {
         Item *curr = table->table[i];
+        printf("%d|",i);
         while (curr != NULL)
         {
-            printf("key=%d release=%d info=%s\n", curr->key, curr->release, curr->info);
+            //printf("key=%d release=%d info=%s\n", curr->key, curr->release, curr->info);
+            
+            printf(" |%d|%d|%s|->", curr->key, curr->release, curr->info);
             curr = curr->next;
         }
+        printf("\n");
     }
     return 1;
 }
 int D_Add(Table *table)
 {
-    int key;
-    char *info;
-    printf("Input key -> ");
-    getInt(&key);
-    scanf("%*c");
-    printf("Input info -> ");
-    info = getStr();
-    int index = hash(key);
-    Item *curr = table->table[index];
-    Item *prev = NULL;
-    int release = 0;
-    while (curr != NULL)
+     int key;
+     char *info;
+     printf("Input key -> ");
+     getInt(&key);
+     scanf("%*c");
+     printf("Input info -> ");
+     info = getStr();
+     int index = hash(key);
+     Item *curr = table->table[index];
+     Item *prev = NULL;
+    
+     Item **items = find_all_items(table, key);
+
+     int release = 0;
+    if (items[0]!=NULL)
     {
-        if (curr->key == key)
-        {
-            prev = curr;
-            curr = curr->next;
-        }
-        else
-        {
-            break;
-        }
+     release = GetLastRev(items)+1;
     }
-    if (prev == NULL && curr == NULL)
-    {
-        Item *new_item = (Item *)malloc(sizeof(Item));
-        new_item->key = key;
-        new_item->release = 1;
-        new_item->info = info;
-        new_item->next = NULL;
-        table->table[index] = new_item;
-        return 1;
-    }
-    else if (prev == NULL && curr != NULL)
-    {
-        Item *new_item = (Item *)malloc(sizeof(Item));
-        new_item->key = key;
-        new_item->release = curr->release + 1;
-        new_item->info = info;
-        new_item->next = curr;
-        table->table[index] = new_item;
-        return 1;
-    }
-    else if (prev != NULL && curr == NULL)
-    {
-        Item *new_item = (Item *)malloc(sizeof(Item));
-        new_item->key = key;
-        new_item->release = prev->release + 1;
-        new_item->info = info;
-        new_item->next = NULL;
-        prev->next = new_item;
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
+
+    Item *new_item = (Item *)malloc(sizeof(Item));
+    new_item->key = key;
+    new_item->release = release;
+    new_item->info = info;
+    new_item->next = curr;
+    table->table[index] = new_item;
+    
+    return 1;
+ 
+    
+    // if (prev == NULL && curr == NULL)
+    // {
+    //     Item *new_item = (Item *)malloc(sizeof(Item));
+    //     new_item->key = key;
+    //     new_item->release = 1;
+    //     new_item->info = info;
+    //     new_item->next = NULL;
+    //     table->table[index] = new_item;
+    //     return 1;
+    // }
+    // else if (prev == NULL && curr != NULL)
+    // {
+    //     Item *new_item = (Item *)malloc(sizeof(Item));
+    //     new_item->key = key;
+    //     new_item->release = curr->release + 1;
+    //     new_item->info = info;
+    //     new_item->next = curr;
+    //     table->table[index] = new_item;
+    //     return 1;
+    // }
+    // else if (prev != NULL && curr == NULL)
+    // {
+    //     Item *new_item = (Item *)malloc(sizeof(Item));
+    //     new_item->key = key;
+    //     new_item->release = prev->release + 1;
+    //     new_item->info = info;
+    //     new_item->next = NULL;
+    //     prev->next = new_item;
+    //     return 1;
+    // }
+    // else
+    // {
+    //     return 0;
+    // }
 }
 
 int getInt(int *a)

@@ -44,7 +44,7 @@ Item *deleteList(Item *ptr) {
     }
     return ptr;
 }
-
+//??????? ??????? 
 Item *newString(Item *p) {
     Item head = {'*', p};
     Item *cur = &head, *prev = &head;

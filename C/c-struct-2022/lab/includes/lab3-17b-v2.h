@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define SIZE 100
+#define SIZE 5
 
 typedef struct Item {
     int key;                          
