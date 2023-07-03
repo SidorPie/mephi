@@ -1,7 +1,30 @@
-#include "lab2-demo.h"
+#include "oldlab2-10.h"
 
+int GetStrings (DataSet **data){
+    int res = 0;
+    int exitFlag = 0;
+    DataSet head = {{'*', NULL}, NULL};
+    DataSet *last = &head;
+
+     do {
+        puts("enter string");
+        Item *ptr = NULL;
+        scanf("%*c");
+        getList(&ptr);
+        last->next = (DataSet *) malloc(sizeof(DataSet));
+        last = last->next;
+        last->d = *ptr;
+        printf("Cancel input : type 1\n");
+        printf("Enter another: type 0\n");
+        scanf("%d", &exitFlag);
+        
+        
+    } while (exitFlag == 0);
+    *data = &head;
+    return res;
+}
 int getList(Item **pptr) {
-    char buf[21], *str;
+    char buf[21], *str=NULL;
     Item head = {'*', NULL};
     Item *last = &head;
     int n, rc = 1;
@@ -14,6 +37,7 @@ int getList(Item **pptr) {
             rc = 0;
             continue;
         }
+
         if (n > 0) {
             for (str = buf; *str != '\0'; ++str) {
                 last->next = (Item *) malloc(sizeof(Item));
@@ -23,6 +47,7 @@ int getList(Item **pptr) {
             last->next = NULL;
         } else
             scanf("%*c");
+            
     } while (n > 0);
     *pptr = head.next;
     return rc;
@@ -44,15 +69,14 @@ Item *deleteList(Item *ptr) {
     }
     return ptr;
 }
-//??????? ??????? 
-Item *newString(Item *p) {
-    Item head = {'*', p};
-    Item *cur = &head, *prev = &head;
-    int fl = 0;
 
+Item *newString(Item *p, int fl) {
+    Item head = {'*', p};
+    Item *cur = &head;
+    Item *prev = &head;
+    //int fl = 1;
 
     while (cur && (cur->next = delSpace(cur->next))) {
-
         if (fl) {
             cur = skipWord(cur->next);
             prev = cur;
@@ -73,7 +97,6 @@ Item *newString(Item *p) {
     return head.next;
 }
 
-
 Item *delSpace(Item *p) {
     Item *tmp;
     while (p && (p->c == ' ' || p->c == '\t')) {
@@ -84,10 +107,13 @@ Item *delSpace(Item *p) {
     return p;
 }
 
-
 Item *skipWord(Item *p) {
-    while (p->next && p->next->c != ' ' && p->next->c != '\t')
+    while (p->next &&
+           p->next->c != ' ' &&
+           p->next->c != '\t') {
         p = p->next;
+    }
+
     return p;
 }
 
@@ -101,13 +127,18 @@ Item *delWord(Item *p) {
     return p;
 }
 
-int Execute() {
-    Item *ptr = NULL;
-    while (puts("enter string"), getList(&ptr)) {
-        putList("Entered string", ptr);
-        ptr = newString(ptr);
-        putList("Result string", ptr);
-        ptr = deleteList(ptr);
+Item *GetLastChar(Item *p) {
+    while (p->next != NULL) {
+        p = p->next;
     }
+    return p;
+}
+
+int Execute() {
+
+    DataSet *strings = NULL;
+    
+    GetStrings(&strings);
+
     return 0;
 }
